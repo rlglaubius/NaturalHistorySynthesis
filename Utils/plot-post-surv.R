@@ -210,11 +210,11 @@ plot.pred.surv = function(imis.rval, post.sims, surv.data, tiff.name, show.raw=F
 
   ggplot(surv.data.augm, aes(x=Year, y=100*Alive)) +
     geom_step() +
+    geom_ribbon(data=surv.each, aes(ymin=100*Lower, ymax=100*Upper, fill=Source), alpha=0.4, show.legend=FALSE) +
+    geom_ribbon(data=surv.pred, aes(ymin=100*Lower, ymax=100*Upper, fill=Source), alpha=0.2, show.legend=FALSE) +
     geom_step(data=surv.data.augm, aes(x=Year, y=100*Lower), linetype="dashed", size=0.3, show.legend=FALSE) +
     geom_step(data=surv.data.augm, aes(x=Year, y=100*Upper), linetype="dashed", size=0.3, show.legend=FALSE) +
     geom_line(data=surv.each, aes(color=Source)) +
-    geom_ribbon(data=surv.each, aes(ymin=100*Lower, ymax=100*Upper, fill=Source), alpha=0.6, show.legend=FALSE) +
-    geom_ribbon(data=surv.pred, aes(ymin=100*Lower, ymax=100*Upper, fill=Source), alpha=0.4, show.legend=FALSE) +
     scale_color_manual(values=col) +
     scale_fill_manual(values=col) +
     xlim(0,20) +
@@ -273,8 +273,6 @@ plot.median.surv = function(imis.rval, post.sims, tiff.name) {
     })
   })
 
-  # tiny.names = c("todd2007aids", "babiker2000lancet", "adj", "raw")
-  # nice.names = c("Todd et al.", "Babiker et al.", "Model (adjusted)", "Model (unadjusted)")
   tiny.names = c("raw", "adj", "babiker2000lancet", "todd2007aids")
   nice.names = c("Model (unadjusted)", "Model (adjusted)", "Babiker et al.", "Todd et al.")
 
